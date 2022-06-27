@@ -17,8 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('answer');
             $table->boolean('is_correct');
-            $table->unsignedBigInteger('question_id');
-            $table->foreign('question_id')->references('id')->on('questions');
+            $table->foreignId('question_id')
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +32,7 @@ return new class extends Migration
      */
     public function down()
     {
+        $table->dropForeign('question_id');
         Schema::dropIfExists('answers');
     }
 };
