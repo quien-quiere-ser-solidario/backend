@@ -22,19 +22,26 @@
 <body>
     <div class="grid h-screen w-screen grid-flow-row grid-cols-2">
         @if(Auth::user())
-        <div class="h-full w-3/5 bg-blue-600 flex flex-col justify-between py-10">
-            <h2 class="text-center text-white font-extrabold text-2xl">Admin Panel</h2>
-            <div class="flex flex-col items-center text-white font-bold">
-                <a href="{{ route("index") }}">Inicio</a>
-                <a href="{{ route('users.index') }}">Usuarios</a>
-                <a href="{{ route('questions.index') }}">Preguntas</a>
+        @php
+            $currentRoute = Route::currentRouteName();
+        @endphp
+        <div class="h-full w-2/5 bg-blue-600 flex flex-col justify-between py-10">
+            <div>
+                <img src="https://i.ibb.co/xg6VZY0/Logo.png" class="mx-auto" height="100" width="100" alt="Qui vol ser solidari logo"/>
+                <h2 class="text-center text-white font-extrabold text-3xl">Panel de Administración</h2>    
             </div>
-            <span>Logged in as {{ Auth::user()->username }}. 
+            <div class="flex flex-col items-center text-white font-bold gap-4">
+                <a href="{{ route("index") }}" @class(["text-xl font-bold uppercase text-white duration-150 hover:scale-110", "border-b-8 border-orange-600" => $currentRoute == 'index',])>Inicio</a>
+                <a href="{{ route('users.index') }}" @class(["text-xl font-bold uppercase text-white duration-150 hover:scale-110", "border-b-8 border-orange-600" => str_contains($currentRoute, 'users'),])>Usuarios</a>
+                <a href="{{ route('questions.index') }}" @class(["text-xl font-bold uppercase text-white duration-150 hover:scale-110", "border-b-8 border-orange-600" => str_contains($currentRoute, 'questions'),])>Preguntas</a>
+            </div>
+            <div class="flex flex-col items-center justify-center gap-2 text-white">
+                <p>Has iniciado sesión como: <span class="font-bold">{{ Auth::user()->username }}.</span></p>
                 <form method="POST" action="{{route('logout')}}">
                     @csrf
-                    <button type="submit">Logout</button>
+                    <button type="submit" class="text-primary font-bold bg-white rounded-full px-3 py-1">Desconectarse</button>
                 </form>
-            </span>
+            </div>
         </div>
         @endif
 

@@ -19,7 +19,7 @@ class QuestionsTest extends TestCase
         $second_request->assertRedirect('/login');
     }
     public function test_questions_are_shown_in_index_page() {
-        
+        Question::factory(2)->create();
         $question = Question::factory()->create();
         $user = User::factory()->create();
 
@@ -28,13 +28,15 @@ class QuestionsTest extends TestCase
         $request = $this->get('/questions');
 
         $request->assertSeeText($question->question);
-
     }
     public function test_question_is_show_by_id() {
-        Question::factory(10)->create();
-        $question = Question::find(1);
+        $question = Question::factory()->create();
+        $user = User::factory()->create();
 
-        $request = $this->get('/questions/1');
+        $this->actingAs($user);
+
+        $request = $this->get("/questions/" . $question->id);
+        
         $request->assertSeeText($question->question);
     }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,14 +17,19 @@ use App\Http\Controllers\QuestionController;
 
 Route::get('/', function () {
     return view('index');
-})->middleware('auth')->name('index');
+})->middleware(['auth', 'is_admin'])->name('index');
+
+Route::get('/home', function() {
+    return redirect()->route('index');
+})->middleware(['auth', 'is_admin']);
 
 Auth::routes();
 
-Route::middleware('auth')->controller(QuestionController::class)->prefix('questions')->group(function () {
+Route::middleware(['auth', 'is_admin'])->controller(QuestionController::class)->prefix('questions')->group(function () {
     Route::get('/',  'index')->name('questions.index');
     Route::get('/{id}', 'show')->name('questions.show');
+    Route::get('/create', 'create')->name('questions.create');
 });
-Route::middleware('auth')->controller(UserController::class)->prefix('users')->group(function() {
+Route::middleware(['auth', 'is_admin'])->controller(UserController::class)->prefix('users')->group(function() {
     Route::get('/', 'index')->name('users.index');
 });
