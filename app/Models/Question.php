@@ -30,7 +30,7 @@ class Question extends Model
      * Get the answers from a question
      */
 
-    public function questions() {
+    public function answers() {
         return $this->hasMany(Answer::class);
     }
 }

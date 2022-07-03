@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Question;
+use App\Models\Answer;
 
 class QuestionController extends Controller
 {
@@ -14,7 +15,8 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questions = Question::all();
+        $questions = Question::orderBy('updated_at', 'desc')->get();
+        
         return view('questions.index', compact('questions'));
     }
 
@@ -36,7 +38,24 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = request()->except(['_token']);
+
+        $question = Question::create([
+            'question' => $data['question']
+        ]);
+
+        foreach ($data['answers'] as $key => $answer) {
+            $answer = [
+                'answer' => $answer,
+                'is_correct' => 0
+            ];
+            if ($key === intval($data['correct'])) {
+                $answer["is_correct"] = 1;
+            }
+            $question->answers()->create($answer);
+        }
+
+        return redirect()->route('questions.index');
     }
 
     /**
@@ -48,7 +67,7 @@ class QuestionController extends Controller
     public function show($id)
     {
         $question = Question::find($id);
-        return view('questions.show', compact('question'));
+        return view("questions.show", compact("question"));
     }
 
     /**
@@ -73,7 +92,25 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = request()->except(['_token', '_method']);
+        $question = Question::find($id);
+
+        $question->update([
+            'question' => $data["question"]
+        ]);
+
+        foreach ($data['answers'] as $key => $answer) {
+            $answer = [
+                'answer' => $answer,
+                'is_correct' => 0
+            ];
+            if ($key === intval($data['correct'])) {
+                $answer["is_correct"] = 1;
+            }
+            $question->answers[$key]->update($answer);
+        }
+
+        return redirect()->route('questions.index');
     }
 
     /**

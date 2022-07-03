@@ -29,6 +29,8 @@ Route::middleware(['auth', 'is_admin'])->controller(QuestionController::class)->
     Route::get('/create', 'create')->name('questions.create');
     Route::get('/edit/{id}', 'edit')->name('questions.edit');
     Route::delete('/destroy/{id}', 'destroy')->name('questions.destroy');
+    Route::patch('/update/{id}', 'update')->name('questions.update');
+    Route::post('/store', 'store')->name('questions.store');
     Route::get('/',  'index')->name('questions.index');
     Route::get('/{id}', 'show')->name('questions.show');
 });

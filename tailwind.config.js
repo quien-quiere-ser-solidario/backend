@@ -16,7 +16,8 @@ module.exports = {
         'entertainment': '#ef1def',
         'sports': '#ff9a35',
         'geography': '#45a5ff',
-        'science': '#14f60f'
+        'science': '#14f60f',
+        'tables': '#FFEBEB'
       },
       fontFamily: {
         'k2d': ['K2D', 'sans-serif'],
