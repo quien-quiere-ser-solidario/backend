@@ -86,7 +86,7 @@ class QuestionController extends Controller
     {
         try {
 
-            Question::delete($id);
+            Question::destroy($id);
 
             return redirect()->back();
             
