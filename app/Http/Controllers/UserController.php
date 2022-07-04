@@ -14,8 +14,17 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('users.index', compact('users'));
+        try {
+
+            $users = User::all();
+            return view('users.index', compact('users'));
+
+        } catch (\Exception $e) {
+
+            $error = $e->getMessage();
+            return redirect()->view('errors.index', compact('error'));
+
+        }
     }
 
     /**
@@ -25,7 +34,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -47,7 +56,20 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            
+            $user = User::find($id);
+    
+            return view('users.show', compact('user'));
+
+        } catch (\Exception $e) {
+
+            $error = $e->getMessage();
+
+            return redirect()->view('errors.index', compact('error'));
+
+        }
+
     }
 
     /**
@@ -58,7 +80,17 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+
+            $user = User::find($id);
+            return view('users.edit', compact('user'));
+
+        } catch (\Exception $e) {
+
+            $error = $e->getMessage();
+            return redirect()->view('errors.index', compact('error'));
+
+        }
     }
 
     /**
@@ -81,6 +113,18 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            
+            User::destroy($id);
+
+            return redirect()->route('users.index');
+
+        } catch(\Exception $e) {
+
+            $error = $e->getMessage();
+
+            return redirect()->view('errors.index', compact('error'));
+
+        }
     }
 }

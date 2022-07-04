@@ -99,14 +99,23 @@ class QuestionController extends Controller
             'question' => $data["question"]
         ]);
 
+        
         foreach ($data['answers'] as $key => $answer) {
+            
             $answer = [
                 'answer' => $answer,
                 'is_correct' => 0
             ];
+
             if ($key === intval($data['correct'])) {
                 $answer["is_correct"] = 1;
             }
+
+            if (!isset($question->answers[$key])) {
+                $question->answers()->create($answer);
+                continue;
+            }
+
             $question->answers[$key]->update($answer);
         }
 
@@ -125,7 +134,7 @@ class QuestionController extends Controller
 
             Question::destroy($id);
 
-            return redirect()->back();
+            return redirect()->route('questions.index');
             
         } catch(\Exception $e) {
 

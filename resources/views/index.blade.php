@@ -6,5 +6,5 @@
             {{ session('status') }}
         </div>
     @endif
-    <h1 class="text-3xl font-bold underline">Hola! Tailwind Instalado!</h1>
+    <h1 class="text-3xl text-center font-bold underline">Dashboard WIP</h1>
 @endsection

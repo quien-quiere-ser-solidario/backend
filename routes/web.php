@@ -35,5 +35,11 @@ Route::middleware(['auth', 'is_admin'])->controller(QuestionController::class)->
     Route::get('/{id}', 'show')->name('questions.show');
 });
 Route::middleware(['auth', 'is_admin'])->controller(UserController::class)->prefix('users')->group(function() {
+    Route::get('/edit/{id}', 'edit')->name('users.edit');
+    Route::get('/create', 'create')->name('users.create');
+    Route::patch('/update/{id}', 'update')->name('users.update');
+    Route::post('/store', 'store')->name('users.store');
+    Route::delete('/destroy/{id}', 'destroy')->name('users.destroy');
     Route::get('/', 'index')->name('users.index');
+    Route::get('/{id}', 'show')->name('users.show');
 });
