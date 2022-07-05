@@ -97,7 +97,7 @@ class QuestionController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->validate([
-            'question' => 'required|string|unique:questions',
+            'question' => 'required|string',
             'answers' => 'required|array|size:4',
             'correct' => 'required|numeric|min:0|max:3'
         ]);

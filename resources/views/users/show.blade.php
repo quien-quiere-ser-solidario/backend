@@ -5,9 +5,9 @@
     <h1 class="font-k2d text-3xl font-black uppercase">Usuario {{ $user->id }}</h1>
     <div class="flex flex-col my-2 gap-3 bg-tables p-10 rounded-lg">
         <label for="username" class="font-montserrat text-xl font-extrabold">Usuario:</label>
-        <input id="username" disabled name="username" required placeholder="Usuario..." value="{{ $user->username }}" class="rounded-lg w-full p-2 mb-6 text-white bg-primary font-bold" />
+        <input id="username" disabled name="username" required placeholder="Usuario..." value="{{ $user->username }}" class="rounded-lg w-full p-2 mb-6 text-white bg-[#8153d4] font-bold" />
         <label for="email" class="font-montserrat text-xl font-extrabold">Correo electrónico:</label>
-        <input id="email" disabled name="email" required placeholder="Correo electrónico..." value="{{ $user->email }}" class="rounded-lg w-full p-2 mb-6 text-white bg-primary font-bold" />
+        <input id="email" disabled name="email" required placeholder="Correo electrónico..." value="{{ $user->email }}" class="rounded-lg w-full p-2 mb-6 text-white bg-[#8153d4] font-bold" />
         <label for="is_admin" class="font-montserrat text-xl font-extrabold">Es Administrador? <input type="checkbox" @if($user->is_admin) checked @endif disabled name="is_admin" id="is_admin" class="ml-10"></label>
         <div id="delete" class="hidden flex-col mt-6 gap-4 p-4 bg-white">
             <h3 class="font-k2d text-xl font-bold">Seguro que desea eliminar <quot>{{ $user->username }}</quot></h3>

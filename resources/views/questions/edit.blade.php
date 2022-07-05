@@ -23,35 +23,23 @@
             <label class="font-montserrat text-xl font-extrabold">Respuestas:
                 <p class="text-sm font-normal">Marca con un tick la respuesta que sea correcta</p>
             </label>
-            @if(isset($question->answers[0]))
             <div class="flex flex-col gap-2">
-                @foreach ($question->answers as $key => $answer)
-                    <div class="flex justify-center items-center gap-8">
-                        <input id="answer1" name="answers[]" required placeholder="Respuesta 1" value="{{ $answer->answer }}" class="rounded-lg w-full p-2" />
-                        <input type="radio" @if($answer->is_correct) checked @endif required name="correct" value="{{ $key }}"  />
-                    </div>
-                @endforeach
+                @if(isset($question->answers[0]))
+                    @foreach ($question->answers as $key => $answer)
+                        <div class="flex justify-center items-center gap-8">
+                            <input id="answer{{$key+1}}" name="answers[]" required placeholder="Respuesta {{$key + 1}}" value="{{ $answer->answer }}" class="rounded-lg w-full p-2" />
+                            <input type="radio" @if($answer->is_correct) checked @endif required name="correct" value="{{ $key }}"  />
+                        </div>
+                    @endforeach
+                @else
+                    @for ($i = 0; $i < 4; $i++)
+                        <div class="flex justify-center items-center gap-8">
+                            <input id="answer{{$i+1}}" name="answers[]" required placeholder="Respuesta {{$i + 1}}" class="rounded-lg w-full p-2" />
+                            <input type="radio" required name="correct" value="{{ $i }}"  />
+                        </div>
+                    @endfor
+                @endif
             </div>
-            @else
-            <div class="flex flex-col gap-2">
-                <div class="flex justify-center items-center gap-8">
-                    <input id="answer1" name="answers[]" required placeholder="Respuesta 1" class="rounded-lg w-full p-2" />
-                    <input type="radio" required name="correct" value="0" />
-                </div>
-                <div class="flex justify-center items-center gap-8">
-                    <input id="answer2" name="answers[]" required placeholder="Respuesta 2" class="rounded-lg w-full p-2" />
-                    <input type="radio" required name="correct" value="1" />
-                </div>
-                <div class="flex justify-center items-center gap-8">
-                    <input id="answer3" name="answers[]" required placeholder="Respuesta 3" class="rounded-lg w-full p-2" />
-                    <input type="radio" required name="correct" value="2" />
-                </div>
-                <div class="flex justify-center items-center gap-8">
-                    <input id="answer4" name="answers[]" required placeholder="Respuesta 4" class="rounded-lg w-full p-2" />
-                    <input type="radio" required name="correct" value="3" />
-                </div>
-            </div>
-            @endif
         </div>
         <div class="flex justify-between">
             <a href="{{ route('questions.index') }}" class="bg-white text-primary font-montserrat font-bold px-4 py-1 rounded-xl">
