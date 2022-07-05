@@ -33,7 +33,10 @@
                 </form>
             </div>
         </div>
-        <div id="normal" class="flex justify-between mt-6">
+        <div id="normal" class="flex justify-between mt-6 gap-8">
+            <a href="{{route('questions.index') }}" class="flex justify-center items-center font-montserrat font-extrabold text-white px-4 py-2 rounded-xl bg-primary pointer">
+                Volver a Preguntas
+            </a>
             <button onclick="openDeleteModal()" class="flex justify-center items-center font-montserrat font-extrabold text-white px-4 py-2 rounded-xl bg-red-400 pointer">
                 Eliminar
             </button>

@@ -59,7 +59,8 @@ class QuestionsTest extends TestCase
 
         $editedQuestion = [
             'question' => 'Edited question',
-            'answers' => []
+            'answers' => ['a', 'b', 'c', 'd'],
+            'correct' => 2
         ];
 
         $this->actingAs($auth_admin);
@@ -91,7 +92,8 @@ class QuestionsTest extends TestCase
 
         $newQuestion = [
             'question' => 'New question',
-            'answers' => []
+            'answers' => ['a', 'b', 'c', 'd'],
+            'correct' => 2
         ];
 
         $this->actingAs($auth_admin);

@@ -61,7 +61,7 @@
         </table>
     </div>
     <div class="w-3/5 flex items-center justify-center">
-        <a href="{{ route('users.create') }}" class="bg-green-400 text-black font-k2d font-bold py-2 px-5 rounded-xl cursor-pointer">
+        <a href="{{ route('users.create') }}" class="bg-green-400 text-black font-k2d font-black text-lg py-2 px-5 rounded-xl cursor-pointer">
             Añadir un Nuevo Usuario
         </a>
     </div>
