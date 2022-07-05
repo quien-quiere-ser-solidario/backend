@@ -38,7 +38,11 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        $data = request()->except(['_token']);
+        $data = $request->validate([
+            'question' => 'required|string|unique:questions',
+            'answers' => 'required|array|size:4',
+            'correct' => 'required|numeric|min:0|max:3'
+        ]);
 
         $question = Question::create([
             'question' => $data['question']
@@ -92,7 +96,11 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = request()->except(['_token', '_method']);
+        $data = $request->validate([
+            'question' => 'required|string|unique:questions',
+            'answers' => 'required|array|size:4',
+            'correct' => 'required|numeric|min:0|max:3'
+        ]);
         $question = Question::find($id);
 
         $question->update([

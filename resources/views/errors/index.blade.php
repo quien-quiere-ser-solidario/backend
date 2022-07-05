@@ -1,1 +1,4 @@
+@extends('layouts.forms')
+
+
 {{ $error }}
