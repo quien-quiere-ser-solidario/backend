@@ -50,7 +50,29 @@ class UsersTest extends TestCase
         $request->assertViewIs('users.edit');
     }
 
-    // public function test_user_can_be_updated() {}
+    public function test_user_can_be_updated() {
+        $user = User::factory()->create();
+
+        $admin = User::factory()->create(['is_admin' => 1]);
+        Auth::login($admin);
+        $auth_admin = Auth::user();
+
+        $editedUser = [
+            "username" => "bigbae12",
+            "email" => "example1212@example1212.org",
+            "is_admin" => 1
+        ];
+
+        $this->actingAs($auth_admin);
+
+        $request = $this->patch("/users/update/" . $user->id, $editedUser);
+
+        $request->assertRedirect('/users');
+
+        $updatedUser = User::find($user->id);
+
+        $this->assertEquals($updatedUser->username, $editedUser["username"]);
+    }
 
     public function test_users_create_form_works() {
         
@@ -66,7 +88,30 @@ class UsersTest extends TestCase
         $request->assertViewIs('users.create');
     }
 
-    // public function test_user_can_be_stored() {}
+    public function test_user_can_be_stored() {
+        $admin = User::factory()->create(['is_admin' => 1]);
+        Auth::login($admin);
+        $auth_admin = Auth::user();
+
+        $newUser = [
+            "username" => "bigbae1212",
+            "email" => "example12@example12.org",
+            "password" => "password1",
+            "repeat-password" => "password1",
+            "is_admin" => 1
+        ];
+
+        $this->actingAs($auth_admin);
+
+        $request = $this->post('/users/store/  ', $newUser);
+
+        $request->assertRedirect('/users');
+
+        $storedUser = User::all()[0];
+
+        $this->assertEquals($newUser["username"], $storedUser->username);
+
+    }
 
     public function test_user_can_be_deleted() {
         $user = User::factory()->create();
