@@ -59,8 +59,7 @@ class UsersTest extends TestCase
 
         $editedUser = [
             "username" => "bigbae12",
-            "email" => "example1212@example1212.org",
-            "is_admin" => 1
+            "email" => "example1212@example1212.org"
         ];
 
         $this->actingAs($auth_admin);
@@ -71,7 +70,7 @@ class UsersTest extends TestCase
 
         $updatedUser = User::find($user->id);
 
-        $this->assertEquals($updatedUser->username, $editedUser["username"]);
+        $this->assertEquals($editedUser["username"], $updatedUser->username);
     }
 
     public function test_users_create_form_works() {
@@ -103,13 +102,14 @@ class UsersTest extends TestCase
 
         $this->actingAs($auth_admin);
 
-        $request = $this->post('/users/store/  ', $newUser);
+        $request = $this->post('/users/store', $newUser);
 
         $request->assertRedirect('/users');
+        
+        $storedUser = User::all()[1];
 
-        $storedUser = User::all()[0];
-
-        $this->assertEquals($newUser["username"], $storedUser->username);
+        $this->assertEquals(count(User::all()), 2);
+        $this->assertEquals($storedUser->is_admin, 1);
 
     }
 
