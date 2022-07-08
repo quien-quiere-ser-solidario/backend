@@ -10253,7 +10253,7 @@ textarea.form-control-lg {
   }
 }
 /*
-! tailwindcss v3.1.4 | MIT License | https://tailwindcss.com
+! tailwindcss v3.1.5 | MIT License | https://tailwindcss.com
 *//*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
@@ -10964,6 +10964,9 @@ video {
 .gap-10 {
   gap: 2.5rem;
 }
+.gap-6 {
+  gap: 1.5rem;
+}
 .gap-4 {
   gap: 1rem;
 }
@@ -10981,9 +10984,6 @@ video {
 }
 .gap-12 {
   gap: 3rem;
-}
-.gap-6 {
-  gap: 1.5rem;
 }
 .space-y-6 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
@@ -11124,13 +11124,17 @@ video {
   padding-top: 3.5rem;
   padding-bottom: 3.5rem;
 }
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
-}
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
 }
 .px-5 {
   padding-left: 1.25rem;
@@ -11139,14 +11143,6 @@ video {
 .py-10 {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
-}
-.px-3 {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-}
-.py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
 }
 .py-20 {
   padding-top: 5rem;
@@ -11233,14 +11229,6 @@ video {
 .underline {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
-}
-.placeholder-sky-300::-moz-placeholder {
-  --tw-placeholder-opacity: 1;
-  color: rgb(125 211 252 / var(--tw-placeholder-opacity));
-}
-.placeholder-sky-300::placeholder {
-  --tw-placeholder-opacity: 1;
-  color: rgb(125 211 252 / var(--tw-placeholder-opacity));
 }
 .duration-150 {
   transition-duration: 150ms;

@@ -34,4 +34,25 @@ class Answer extends Model
     public function question() {
         return $this->belongsTo(Question::class);
     }
+
+    static function createOrUpdateAndAttach($answers, $question, $correct) {
+        foreach ($answers as $key => $answer) {
+            
+            $answer = [
+              'answer' => $answer,
+              'is_correct' => 0
+            ];
+        
+            if ($key === $correct) {
+              $answer["is_correct"] = 1;
+            }
+        
+            if (!isset($question->answers[$key])) {
+                $question->answers()->create($answer);
+                continue;
+            }
+        
+            $question->answers[$key]->update($answer);
+        }
+    }
 }
