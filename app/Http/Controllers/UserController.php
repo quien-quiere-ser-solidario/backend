@@ -147,9 +147,10 @@ class UserController extends Controller
                 return redirect()->route('users.index');
             }
             
-            $validated_request['is_admin'] = 1;
             $user->update([
-                'is_admin' => $validated_request['is_admin']
+                'username' => $validated_request['username'],
+                'email' => $validated_request['email'],
+                'is_admin' => 1
             ]);
 
             return redirect()->route('users.index');

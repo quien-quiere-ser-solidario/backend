@@ -85,6 +85,7 @@ class UsersTest extends TestCase
         $request = $this->get("/users/create/");
 
         $request->assertStatus(200);
+        
         $request->assertViewIs('users.create');
     }
 
@@ -103,11 +104,11 @@ class UsersTest extends TestCase
 
         $this->actingAs($auth_admin);
 
-        $request = $this->post('/users/store/  ', $newUser);
+        $request = $this->post('/users/store', $newUser);
 
         $request->assertRedirect('/users');
 
-        $storedUser = User::all()[0];
+        $storedUser = User::all()[1];
 
         $this->assertEquals($newUser["username"], $storedUser->username);
 
@@ -122,7 +123,10 @@ class UsersTest extends TestCase
         $this->actingAs($auth_admin);
 
         $request = $this->delete("/users/destroy/" . $user->id);
+
         $request->assertStatus(302);
+
         $request->assertRedirect('/users');
+
     }
 }
