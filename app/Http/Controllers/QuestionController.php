@@ -48,16 +48,7 @@ class QuestionController extends Controller
             'question' => $data['question']
         ]);
 
-        foreach ($data['answers'] as $key => $answer) {
-            $answer = [
-                'answer' => $answer,
-                'is_correct' => 0
-            ];
-            if ($key === intval($data['correct'])) {
-                $answer["is_correct"] = 1;
-            }
-            $question->answers()->create($answer);
-        }
+        Answer::createOrUpdateAndAttach($data["answers"], $question, $data["correct"]);
 
         return redirect()->route('questions.index');
     }
@@ -108,24 +99,7 @@ class QuestionController extends Controller
         ]);
 
         
-        foreach ($data['answers'] as $key => $answer) {
-            
-            $answer = [
-                'answer' => $answer,
-                'is_correct' => 0
-            ];
-
-            if ($key === intval($data['correct'])) {
-                $answer["is_correct"] = 1;
-            }
-
-            if (!isset($question->answers[$key])) {
-                $question->answers()->create($answer);
-                continue;
-            }
-
-            $question->answers[$key]->update($answer);
-        }
+        Answer::createOrUpdateAndAttach($data["answers"], $question, $data["correct"]);
 
         return redirect()->route('questions.index');
     }

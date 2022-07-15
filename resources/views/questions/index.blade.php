@@ -1,49 +1,62 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="h-full flex flex-col justify-between items-center gap-5 py-20">
-    <h1 class="font-k2d text-3xl font-black uppercase">Preguntas</h1>
-    <div class="w-3/4 flex flex-col">
-            <a href="{{ route('questions.create') }}" class="w-full text-white text-center font-montserrat font-bold py-2 bg-purple-800 rounded-t-xl border-1 border-black hover:text-white">Añade una pregunta</a>
+<div class="flex flex-col items-center justify-between h-full gap-5 py-20">
+    <h1 class="text-3xl font-black uppercase font-k2d">Preguntas</h1>
+    <div class="flex flex-col w-3/4">
+            <a href="{{ route('questions.create') }}" class="w-full py-2 font-bold text-center text-white bg-purple-800 border-black font-montserrat rounded-t-xl border-1 hover:text-white">Añade una pregunta</a>
 
-        <button class="w-full font-bold font-montserrat py-2 bg-orange-500 rounded-b-xl border-1 border-black">Importar perguntas desde fichero (Microsoft Excel)</button>
+        <button class="w-full py-2 font-bold bg-orange-500 border-black font-montserrat rounded-b-xl border-1">Importar perguntas desde fichero (Microsoft Excel)</button>
     </div>
-    <div class="w-full h-full overflow-y-auto scroll-smooth my-2 flex flex-col items-center">
+    <div class="flex flex-col items-center w-full h-full my-2 overflow-y-auto scroll-smooth">
     @foreach ($questions as $question)
         <!-- Delete Card -->
-        <div id="{{ $question->id }}" class="hidden w-4/5 mb-2 flex">
-            <div class="bg-red-400 rounded-3xl py-3 px-4 w-full text-clip">
-                <h1 class="font-montserrat font-bold text-white truncate text-ellipsis">¿Seguro que quieres eliminar {{ $question->question }}?</h1>
+        <div id="{{ $question->id }}" class="flex hidden w-4/5 mb-2">
+            <div class="w-full px-4 py-8 bg-red-400 rounded-3xl text-clip">
+                <h1 class="font-bold text-white truncate font-montserrat text-ellipsis">¿Seguro que quieres eliminar {{ $question->question }}?</h1>
             </div>
-            <div class="flex items-center justify-end px-1 gap-2 bg-white duration-500 w-1/5">
-                <button onclick="closeDeleteModal({{ $question->id }})" class="h-12 rounded-full bg-green-400 text-center pointer aspect-square">
-                    <i class="fa-solid fa-x text-white font-bold"></i>
+            <div class="flex items-center justify-end w-1/5 gap-2 px-1 bg-white">
+                <button onclick="closeDeleteModal({{ $question->id }})" class="h-12 text-center bg-green-400 rounded-full pointer aspect-square">
+                    <i class="font-bold text-white fa-solid fa-x"></i>
                 </button>
                 <form action="{{ route('questions.destroy', $question->id) }}" method="POST">
                     @csrf
                     @method('delete')
-                    <button type="submit" class="h-12 rounded-full bg-red-400 pointer text-center aspect-square">
-                        <i class="fa-solid fa-trash-can text-white font-bold"></i>
+                    <button type="submit" class="h-12 text-center bg-red-400 rounded-full pointer aspect-square">
+                        <i class="font-bold text-white fa-solid fa-trash-can"></i>
                     </button>
                 </form>
             </div>
         </div>
         <!-- Normal Card -->
-        <div id="normal{{ $question->id }}" class="w-4/5 mb-2 group flex">
+        <div id="normal{{ $question->id }}" class="flex w-4/5 mb-2 group">
             <a href="{{ route('questions.show', ['id' => $question->id]) }}" class="w-full">
-                <div class="bg-primary rounded-3xl py-3 px-4 w-full text-clip">
-                    <h1 class="font-montserrat font-bold text-white truncate text-ellipsis">{{ $question->question }}</h1>
+                <div class="w-full px-4 py-8 bg-primary rounded-3xl text-clip group-hover:duration-500">
+                    <h1 class="font-bold text-white group-hover:truncate font-montserrat text-ellipsis">{{ $question->question }}</h1>
                 </div>
-                <div class="hidden group-hover:flex items-center justify-center px-1 gap-2 bg-white duration-500 w-1/5">
+                <div class="flex items-center justify-center hidden w-1/5 gap-2 px-1 bg-white group-hover:flex group-hover:duration-500">
                     <a href="{{route('questions.edit', ['id' => $question->id])}}" class="h-12 flex justify-center items-center rounded-full bg-[#8153d4] pointer aspect-square">
-                        <i class="fa-solid fa-pen text-white font-bold"></i>
+                        <i class="font-bold text-white fa-solid fa-pen"></i>
                     </a>
                     <button onclick="openDeleteModal({{ $question->id }})" class="h-12 rounded-full bg-[#8153d4] pointer aspect-square">
-                        <i class="fa-solid fa-trash-can text-white font-bold"></i>
+                        <i class="font-bold text-white fa-solid fa-trash-can"></i>
                     </button>
                 </div>
             </a>
         </div>
+        {{-- <div class="relative w-4/5 h-full px-5 group">
+          <div class="absolute left-0 z-10 flex justify-start w-full h-12 px-5 py-3 bg-black group-hover:w-4/5 group-hover:duration-500 rounded-3xl">
+            <h1 class="font-bold text-white truncate font-montserrat text-ellipsis">{{ $question->question }}</h1>
+          </div>
+          <div class="absolute left-0 z-0 flex items-center justify-end w-full h-12 gap-4 pr-6 bg-white rounded-3xl">
+            <a href="{{route('questions.edit', ['id' => $question->id])}}" class="h-12 flex justify-center items-center rounded-full bg-[#8153d4] pointer aspect-square">
+                <i class="font-bold text-white fa-solid fa-pen"></i>
+            </a>
+            <button onclick="openDeleteModal({{ $question->id }})" class="h-12 rounded-full bg-[#8153d4] pointer aspect-square">
+                <i class="font-bold text-white fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        </div> --}}
     @endforeach
     </div>
 </div>
