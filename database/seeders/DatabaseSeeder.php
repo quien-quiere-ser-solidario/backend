@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Question;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,5 +22,17 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        Question::factory(50)->create();
+        User::factory()->create([
+            'username' => 'admin',
+            'email' => 'admin@admin.com',
+            'is_admin' => true,
+        ]);
+        User::factory()->create([
+            'username' => 'user',
+            'email' => 'user@user.com',
+        ]);
+        User::factory(20)->create();
     }
 }
