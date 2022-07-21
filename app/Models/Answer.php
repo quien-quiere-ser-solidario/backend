@@ -36,23 +36,27 @@ class Answer extends Model
     }
 
     static function createOrUpdateAndAttach($answers, $question, $correct) {
-        foreach ($answers as $key => $answer) {
+        try {
+            foreach ($answers as $key => $answer) {
+                $answer = [
+                  'answer' => $answer,
+                  'is_correct' => 0
+                ];
             
-            $answer = [
-              'answer' => $answer,
-              'is_correct' => 0
-            ];
-        
-            if ($key === $correct) {
-              $answer["is_correct"] = 1;
-            }
-        
-            if (!isset($question->answers[$key])) {
+                if ($key === intval($correct)) {
+                  $answer["is_correct"] = 1;
+                }
+            
+                if (isset($question->answers[$key])) {
+                    $question->answers[$key]->update($answer);
+                    continue;
+                }
+                
                 $question->answers()->create($answer);
-                continue;
             }
-        
-            $question->answers[$key]->update($answer);
+
+        } catch (\Exception $e) {
+            dd($e);
         }
     }
 }

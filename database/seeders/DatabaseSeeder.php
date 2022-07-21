@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Question;
+use App\Models\Answer;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,7 +24,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Question::factory(50)->create();
+        Question::factory(50)->hasAnswers(3)->hasAnswers(1, ['is_correct' => true])->create();
         User::factory()->create([
             'username' => 'admin',
             'email' => 'admin@admin.com',
