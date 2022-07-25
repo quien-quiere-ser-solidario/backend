@@ -38,18 +38,17 @@ class ScoreController extends Controller
     }
     public function index() {
 
-        if(!Auth::user()) {
-            return response('No hay usuario identificado', 402);
-        }
+        // if(!Auth::user()) {
+        //     return response('No hay usuario identificado', 402);
+        // }
 
         try {
 
-            $month = date('m');
-            $year = date('Y');
-
-            $scores = Score::orderBy('created_at', 'desc')->whereYear('created_at', $year)->whereMonth('created_at', $month)->get();
+            $scores = Score::getCurrentMonthScores();
+            $concatenated_scores = Score::concatenateScores($scores);
+            $sorted_scores = Score::sortScores($concatenated_scores);
     
-            return response()->json($scores);
+            return response($sorted_scores, 200);
 
         } catch(\Exception $e) {
             return response('Se ha encontrado un error: ' . $e->getMessage(), 500);
