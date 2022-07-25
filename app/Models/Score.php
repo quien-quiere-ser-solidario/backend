@@ -23,7 +23,8 @@ class Score extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'score'
+        'score',
+        'username'
     ];
 
     /**

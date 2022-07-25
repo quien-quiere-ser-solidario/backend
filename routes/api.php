@@ -25,8 +25,9 @@ Route::controller(UserController::class)->prefix('auth')->group(function() {
 Route::controller(QuestionController::class)->prefix('game')->group(function() {
     Route::get('/questions', 'getQuestions');
 });
-Route::controller(ScoreController::class)->prefix('score')->group(function() {
+Route::controller(ScoreController::class)->prefix('scores')->group(function() {
     Route::post('/store', 'store');
+    Route::get('/', 'index');
 });
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

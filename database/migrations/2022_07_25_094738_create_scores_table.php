@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('scores', function (Blueprint $table) {
             $table->id();
             $table->integer('score');
+            $table->string('username');
             $table->foreignId('user_id')
                 ->constrained()
                 ->onUpdate('cascade')

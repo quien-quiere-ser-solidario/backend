@@ -22,7 +22,8 @@ class ScoreController extends Controller
 
         $score = [
             'score' => $validated_request['score'],
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'username' => $user->username
         ];
 
         try {
@@ -32,6 +33,25 @@ class ScoreController extends Controller
             return response('Puntuación guardada correctamente');
 
         } catch (\Exception $e) {
+            return response('Se ha encontrado un error: ' . $e->getMessage(), 500);
+        }
+    }
+    public function index() {
+
+        if(!Auth::user()) {
+            return response('No hay usuario identificado', 402);
+        }
+
+        try {
+
+            $month = date('m');
+            $year = date('Y');
+
+            $scores = Score::orderBy('created_at', 'desc')->whereYear('created_at', $year)->whereMonth('created_at', $month)->get();
+    
+            return response()->json($scores);
+
+        } catch(\Exception $e) {
             return response('Se ha encontrado un error: ' . $e->getMessage(), 500);
         }
     }

@@ -163,7 +163,7 @@ class DatabaseSeeder extends Seeder
                 'is_correct' => false
             ])->hasAnswers(1,
             [
-                'answer' => 'Homo Neardental',
+                'answer' => 'Homo Neandertal',
                 'is_correct' => false
             ])->hasAnswers(1,
             [
