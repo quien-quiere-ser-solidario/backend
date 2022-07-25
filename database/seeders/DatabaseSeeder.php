@@ -24,16 +24,20 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Question::factory(50)->hasAnswers(3)->hasAnswers(1, ['is_correct' => true])->create();
+        // Question::factory(50)->hasAnswers(3)->hasAnswers(1, ['is_correct' => true])->create();
         User::factory()->create([
             'username' => 'admin',
             'email' => 'admin@admin.com',
+            'password' => '$2y$10$kSECnmXftV9Wv58GV0li0uavngQVHVlBuVG4Uesod8jRl/hlr/5k6',
             'is_admin' => true,
         ]);
         User::factory()->create([
             'username' => 'user',
             'email' => 'user@user.com',
         ]);
-        User::factory(20)->create();
+        Question::factory()->create([
+
+        ]);
+        // User::factory(20)->create();
     }
 }

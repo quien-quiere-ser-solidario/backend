@@ -4,9 +4,7 @@
 <div class="flex flex-col items-center justify-between w-full h-full gap-5 py-20">
     <h1 class="text-3xl font-black uppercase font-k2d">Preguntas</h1>
     <div class="flex flex-col w-3/4">
-            <a href="{{ route('questions.create') }}" class="w-full py-2 font-bold text-center text-white bg-purple-800 border-black font-montserrat rounded-t-xl border-1 hover:text-white">Añade una pregunta</a>
-
-        <button class="w-full py-2 font-bold bg-orange-500 border-black font-montserrat rounded-b-xl border-1">Importar perguntas desde fichero (Microsoft Excel)</button>
+            <a href="{{ route('questions.create') }}" class="w-full py-2 font-bold text-center text-white bg-purple-800 border-black font-montserrat rounded-xl border-1 hover:text-white">Añade una pregunta</a>
     </div>
     <div class="flex flex-col items-center w-full h-full my-2 overflow-y-auto scroll-smooth">
     @foreach ($questions as $question)

@@ -109,8 +109,6 @@ class UsersTest extends TestCase
         
         $storedUser = User::all()[1];
 
-        $storedUser = User::all()[1];
-
         $this->assertEquals($newUser["username"], $storedUser->username);
 
     }

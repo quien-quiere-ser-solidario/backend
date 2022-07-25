@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="h-full flex flex-col justify-between items-center gap-5 py-20">
+<div class="h-full w-full flex flex-col justify-between items-center gap-5 py-20">
     <h1 class="font-k2d text-3xl font-black uppercase">Usuarios</h1>
     <div class="w-full h-full overflow-y-auto scroll-smooth my-2 flex flex-col items-center">
-        <table class="table text-white border-separate space-y-6 text-md">
+        <table class="w-full table text-white border-separate space-y-6 text-md">
             <thead class="bg-primary text-white sticky top-0">
                 <tr class="font-k2d font-black">
                     <th class="p-3">Nombre de usuario</th>
