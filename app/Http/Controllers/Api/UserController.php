@@ -13,23 +13,11 @@ class UserController extends Controller
 {
     public function register(Request $request) 
     {
-        $user_data = $request->validate([
-            'username' => 'required|string|unique:users|max:255',
-            'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|min:8',
-            'repeat-password' => 'required|string|min:8|same:password'
-        ]);
-
-        $user = [
-            "username" => $user_data["username"],
-            "email" => $user_data["email"],
-            "password" => Hash::make($user_data["password"]),
-            "is_admin" => 0
-        ];
-
+        
         try {
-
-            User::create($user);
+            
+            $user_data = User::validateRegisterRequest($request);
+            User::register($user_data);
 
             return response('¡El usuario se ha registrado correctamente!');
 
@@ -44,17 +32,18 @@ class UserController extends Controller
 
     public function login(Request $request) 
     {
-        $credentials = $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-        ]);
+        try {
+            $credentials = User::validateLoginRequest($request);
+
+            User::login($credentials);
         
-        if (! Auth::attempt($credentials)) {
-            throw ValidationException::withMessages([
-                'email' => [__('auth.failed')]
-                ]);        
+            return $request->user();
+
+        } catch (\Exception $e) {
+
+            return response($e, 500);
+
         }
-        return $request->user();
     }
 
     public function logout() 

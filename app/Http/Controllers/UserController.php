@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -17,7 +16,7 @@ class UserController extends Controller
     {
         try {
 
-            $users = User::orderBy('updated_at', 'desc')->get();
+            $users = User::getOrderedUsers();
             return view('users.index', compact('users'));
 
         } catch (\Exception $e) {
@@ -46,26 +45,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $validated_request = $request->validate([
-            'username' => 'required|string|unique:users|max:255',
-            'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|min:8',
-            'repeat-password' => 'required|string|min:8|same:password',
-            'is_admin' => 'sometimes|required|accepted'
-        ]);
 
-        $user = [
-            'username' => $validated_request['username'],
-            'email' => $validated_request['email'],
-            'password' => Hash::make($validated_request['password']),
-        ];
-
-        if (isset($validated_request['is_admin'])) {
-            $user['is_admin'] = 1;
-        }
-
-        User::create($user);
+        $validated_request = User::validateStoreRequest($request);
+        User::storeUser($validated_request);
 
         return redirect()->route('users.index');
     }
@@ -124,34 +106,11 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        $validated_request = $request->validate([
-            'username' => 'required|string|max:255',
-            'email' => 'required|string|email',
-            'is_admin' => 'sometimes|required|accepted'
-        ]);
-
-        
+    {        
         try {
+            $validated_request = User::validateUpdateRequest($request);
             
-            $user = User::find($id);
-
-            if (!isset($validated_request['is_admin'])) {
-
-                $user->update([
-                    'username' => $validated_request['username'],
-                    'email' => $validated_request['email'],
-                    'is_admin' => 0
-                ]);
-                
-                return redirect()->route('users.index');
-            }
-            
-            $user->update([
-                'username' => $validated_request['username'],
-                'email' => $validated_request['email'],
-                'is_admin' => 1
-            ]);
+            User::updateUser($validated_request, $id);
 
             return redirect()->route('users.index');
 

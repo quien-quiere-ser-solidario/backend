@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 
 class ApplicationTest extends TestCase
 {
+    use RefreshDatabase;
+    
     /**
      * A basic test example.
      *

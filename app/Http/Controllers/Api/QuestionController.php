@@ -9,14 +9,7 @@ use App\Models\Question;
 class QuestionController extends Controller
 {
     public function getQuestions() {
-        $questions = Question::inRandomOrder()->limit(20)->get();
-
-        foreach($questions as $question) {
-            $answers = $question->answers()->inRandomOrder()->get();
-
-
-            $question["answers"] = $answers;
-        }
+        $questions = Question::getQuestionsForGame();
 
         return response()->json($questions);
     }

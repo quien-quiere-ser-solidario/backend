@@ -15,7 +15,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questions = Question::orderBy('updated_at', 'desc')->get();
+        $questions = Question::getOrderedQuestions();
         
         return view('questions.index', compact('questions'));
     }
@@ -38,15 +38,9 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'question' => 'required|string|unique:questions',
-            'answers' => 'required|array|size:4',
-            'correct' => 'required|numeric|min:0|max:3'
-        ]);
+        $data = Question::validateStoreRequest($request);
 
-        $question = Question::create([
-            'question' => $data['question']
-        ]);
+        $question = Question::storeQuestion($data);
 
         Answer::createOrUpdateAndAttach($data["answers"], $question, $data["correct"]);
 
@@ -87,17 +81,8 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->validate([
-            'question' => 'required|string',
-            'answers' => 'required|array|size:4',
-            'correct' => 'required|numeric|min:0|max:3'
-        ]);
-        $question = Question::find($id);
-
-        $question->update([
-            'question' => $data["question"]
-        ]);
-
+        $data = Question::validateUpdateRequest($request);
+        $question = Question::updateQuestion($data, $id);
         
         Answer::createOrUpdateAndAttach($data["answers"], $question, $data["correct"]);
 
