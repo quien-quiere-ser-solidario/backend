@@ -9,6 +9,10 @@ Cada mes, se elegirá un ganador (que será el que más puntos tenga), y este de
 
 ## Imágenes del Panel Administrativo
 
+![Login](https://bigbae18.github.io/trivial/login.PNG)
+![Users](https://bigbae18.github.io/trivial/users.PNG)
+![Questions](https://bigbae18.github.io/trivial/questions.PNG)
+
 ## Equipo:
 
 - **[Adrián Pelayo](https://github.com/bigbae18) - Product Owner**
