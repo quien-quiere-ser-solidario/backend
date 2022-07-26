@@ -48,7 +48,7 @@ class ScoreController extends Controller
             $concatenated_scores = Score::concatenateScores($scores);
             $sorted_scores = Score::sortScores($concatenated_scores);
     
-            return response($sorted_scores, 200);
+            return response($sorted_scores);
 
         } catch(\Exception $e) {
             return response('Se ha encontrado un error: ' . $e->getMessage(), 500);
